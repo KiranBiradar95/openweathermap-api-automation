@@ -24,10 +24,9 @@ public class CurrentWeatherDetails {
     public static final long StatusOK = 200;
     public static final long StatusNotFound = 404;
 
-    public static int ID;
 
     /*
-    Test the API response is 200 for valid input (City name)
+    Test the API response is 200 for valid input (City name=Boston)
      **/
 
     @Test
@@ -52,7 +51,9 @@ public class CurrentWeatherDetails {
 
     }
 
-
+    /*
+        Test the API response is 404 for Invalid input (City name=Boston123)
+         **/
     @Test
     public void verifyCurrentWeatherByIncorrectCityName() {
 
@@ -74,6 +75,9 @@ public class CurrentWeatherDetails {
         Assert.assertEquals(StatusNotFound, res.getStatusCode());
     }
 
+    /*
+    Test the API response is 200 for valid input (City ID=2172797)
+     **/
     @Test
     public void getCurrentWeatherByCityID() {
 
@@ -94,6 +98,9 @@ public class CurrentWeatherDetails {
         System.out.println(res.prettyPrint());
     }
 
+    /*
+    Test the API response is 200 for valid input (City Name="Cairns" and City ID=2172797)
+     **/
     @Test
     public void getCurrentWeatherByCityNameandCityID() {
 
@@ -116,8 +123,11 @@ public class CurrentWeatherDetails {
         System.out.println(res.prettyPrint());
     }
 
+    /*
+    Test the API response is 200 for valid input (City Name="Cairns" and City ID=2172797)
+     **/
     @Test
-    public void getCurrentWeatherByZipCodeD() {
+    public void getCurrentWeatherByZipCode() {
 
         RestAssured.baseURI = URI;
 
@@ -137,7 +147,9 @@ public class CurrentWeatherDetails {
         System.out.println(res.prettyPrint());
     }
 
-    // Get the weather details by using city latitude and longitude
+    /*
+    Test the API response is 200 for valid input (API Token Latitude, Longitude)
+     **/
     @Test
     public void getCurrentWeatherByLatLon() {
 
@@ -159,6 +171,10 @@ public class CurrentWeatherDetails {
         System.out.println(res.prettyPrint());
     }
 
+    /*
+    Test the API response is 200 for valid input
+    (API Token Latitude, Longitude,City Name="Mountain View", Zip code=94040 City ID=5122)
+     **/
     @Test
     public void getCurrentWeatherByCityNameIdZipLatLon() {
 
@@ -180,7 +196,7 @@ public class CurrentWeatherDetails {
         JsonPath js = new JsonPath(res.asString());
         Assert.assertEquals("mountain view", js.get("name").toString().toLowerCase());
         LinkedHashMap<String, Object> metadata = js.get("sys");
-        Assert.assertEquals(2010364, metadata.get("id"));
+        Assert.assertEquals(5122, metadata.get("id"));
         System.out.println(res.prettyPrint());
     }
 
